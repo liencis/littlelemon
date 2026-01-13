@@ -11,6 +11,7 @@ struct MenuView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @ObservedObject var dishesModel = DishesModel()
+    @State var searchText = ""
 
     var body: some View {
         VStack {
@@ -24,41 +25,55 @@ struct MenuView: View {
                     // Place for image
                 }
             }
+            HStack {
+                Image(systemName: "magnifyingglass")
+                TextField("Search menu", text: $searchText)
+            }
+            .padding(3)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(lineWidth: 2)
+                    .foregroundStyle(Color.lemonGreen)
+            )
             FetchedObjects(
-                //predicate:buildPredicate(),
+                predicate:buildPredicate(),
                 sortDescriptors: buildSortDescriptors()
             ) { (dishes: [Dish]) in
-                List {
-                    ForEach(dishes, id: \.self) { dish in
-                        NavigationLink(destination: ItemDetailsView(dish)) {
-                            HStack() {
-                                Text(dish.title ?? "")
-                                Text("$ \(String(dish.price))")
-                                Spacer()
-                                AsyncImage(url: URL(string: dish.image ?? "https://imgur.com/nIT7Agk.jpg")) {image in
-                                    image.resizable()
-                                } placeholder: {
-                                    ProgressView()
+                HStack {
+                    List {
+                        ForEach(dishes, id: \.self) { dish in
+                            NavigationLink(destination: ItemDetailsView(dish)) {
+                                HStack() {
+                                    Text(dish.title ?? "")
+                                    Text("$ \(String(dish.price))")
+                                    Spacer()
+                                    AsyncImage(url: URL(string: dish.image ?? "https://imgur.com/nIT7Agk.jpg")) {image in
+                                        image.resizable()
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    .frame(width: 50, height: 50)
                                 }
-                                .frame(width: 50, height: 50)
                             }
                         }
                     }
                 }
-            }.navigationBarTitle("Menu")
+                //.searchable(text: $searchText, prompt: "search...")
+                .navigationBarTitle("Menu")
+            }
         }
         .task {
             await dishesModel.getMenuData(viewContext)
         }
     }
     
-//    func buildPredicate() -> NSPredicate {
-//        if searchText == "" {
-//            return NSPredicate(value: true)
-//        }
-//        
-//        return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
-//    }
+    func buildPredicate() -> NSPredicate {
+        if searchText == "" {
+            return NSPredicate(value: true)
+        }
+        
+        return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+    }
     
     func buildSortDescriptors() -> [NSSortDescriptor] {
         return [NSSortDescriptor(
