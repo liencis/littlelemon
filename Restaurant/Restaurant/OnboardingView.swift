@@ -13,6 +13,10 @@ let kEmail = "email key"
 
 let kIsLoggedIn = "kIsLoggedIn"
 
+enum Screen: Hashable {
+    case home
+}
+
 struct OnboardingView: View {
     @State var firstName: String = ""
     @State var lastName: String = ""
@@ -42,7 +46,7 @@ struct OnboardingView: View {
                             UserDefaults.standard.set(true, forKey: kIsLoggedIn)
                             isLoggedIn = true
                             clearState()
-                            path.append("home")
+                            path.append(Screen.home)
                         } else {
                             alertMesage = "Incorect email adress: \(email)"
                             showAlert.toggle()
@@ -57,52 +61,56 @@ struct OnboardingView: View {
                 }
             }
             .padding(12)
-            .navigationDestination(for: String.self) { value in
-                if value == "home" { HomeView(path: $path) }
+            .navigationDestination(for: Screen.self) { screen in
+                switch screen {
+                case Screen.home:
+                    HomeView(path: $path)
+                }
+                //if value == "home" { HomeView(path: $path) }
             }
         }
 
-        
-//        if isLoggedIn {
-//            NavigationStack { HomeView() }
-//        } else {
-//            NavigationStack {
-//                VStack {
-//                    TextField("First name", text: $firstName)
-//                    TextField("Last name", text: $lastName)
-//                    TextField("Email", text: $email)
-//                        .keyboardType(.emailAddress)
-//                    
-//                    Button("Register") {
-//                        if !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty {
-//                            if isValidEmail(email) {
-//                                UserDefaults.standard.set(firstName, forKey: kFirstName)
-//                                UserDefaults.standard.set(lastName, forKey: kLastName)
-//                                UserDefaults.standard.set(email, forKey: kEmail)
-//                                UserDefaults.standard.set(true, forKey: kIsLoggedIn)
-//                                isLoggedIn = true
-//                            } else {
-//                                alertMesage = "Incorect email adress: \(email)"
-//                                showAlert.toggle()
-//                            }
-//                        } else {
-//                            alertMesage = "To finish registration you should provide all required information!"
-//                            showAlert.toggle()
-//                        }
-//                    }
-//                    .alert(isPresented: self.$showAlert) {
-//                        Alert(title: Text("\(alertMesage)"))
-//                    }
-//                }
-//                .padding(8)
-//                .onAppear() {
-//                    if UserDefaults.standard.bool(forKey: kIsLoggedIn) {
-//                        isLoggedIn = true
-//                    } else { isLoggedIn = false }
-//                }
-//            }
-//        }
-    }
+            
+    //        if isLoggedIn {
+    //            NavigationStack { HomeView() }
+    //        } else {
+    //            NavigationStack {
+    //                VStack {
+    //                    TextField("First name", text: $firstName)
+    //                    TextField("Last name", text: $lastName)
+    //                    TextField("Email", text: $email)
+    //                        .keyboardType(.emailAddress)
+    //
+    //                    Button("Register") {
+    //                        if !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty {
+    //                            if isValidEmail(email) {
+    //                                UserDefaults.standard.set(firstName, forKey: kFirstName)
+    //                                UserDefaults.standard.set(lastName, forKey: kLastName)
+    //                                UserDefaults.standard.set(email, forKey: kEmail)
+    //                                UserDefaults.standard.set(true, forKey: kIsLoggedIn)
+    //                                isLoggedIn = true
+    //                            } else {
+    //                                alertMesage = "Incorect email adress: \(email)"
+    //                                showAlert.toggle()
+    //                            }
+    //                        } else {
+    //                            alertMesage = "To finish registration you should provide all required information!"
+    //                            showAlert.toggle()
+    //                        }
+    //                    }
+    //                    .alert(isPresented: self.$showAlert) {
+    //                        Alert(title: Text("\(alertMesage)"))
+    //                    }
+    //                }
+    //                .padding(8)
+    //                .onAppear() {
+    //                    if UserDefaults.standard.bool(forKey: kIsLoggedIn) {
+    //                        isLoggedIn = true
+    //                    } else { isLoggedIn = false }
+    //                }
+    //            }
+    //        }
+        }
     
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"

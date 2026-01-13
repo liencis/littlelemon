@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct MenuView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @ObservedObject var dishesModel = DishesModel()
+
     var body: some View {
         VStack {
             VStack {
@@ -20,9 +24,49 @@ struct MenuView: View {
                     // Place for image
                 }
             }
-            List {}
+            FetchedObjects(
+                //predicate:buildPredicate(),
+                sortDescriptors: buildSortDescriptors()
+            ) { (dishes: [Dish]) in
+                List {
+                    ForEach(dishes, id: \.self) { dish in
+                        NavigationLink(destination: ItemDetailsView(dish)) {
+                            HStack() {
+                                Text(dish.title ?? "")
+                                Text("$ \(String(dish.price))")
+                                Spacer()
+                                AsyncImage(url: URL(string: dish.image ?? "https://imgur.com/nIT7Agk.jpg")) {image in
+                                    image.resizable()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(width: 50, height: 50)
+                            }
+                        }
+                    }
+                }
+            }.navigationBarTitle("Menu")
+        }
+        .task {
+            await dishesModel.getMenuData(viewContext)
         }
     }
+    
+//    func buildPredicate() -> NSPredicate {
+//        if searchText == "" {
+//            return NSPredicate(value: true)
+//        }
+//        
+//        return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+//    }
+    
+    func buildSortDescriptors() -> [NSSortDescriptor] {
+        return [NSSortDescriptor(
+                key: "title",
+                ascending: true,
+                selector: #selector(NSString .localizedStandardCompare(_:)))]
+    }
+
 }
 
 #Preview {
