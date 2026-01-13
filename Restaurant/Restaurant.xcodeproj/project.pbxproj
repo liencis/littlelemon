@@ -29,15 +29,31 @@
 		AAED4E9D2F0EAA8F0062EEC2 /* RestaurantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AAEED65D2F11540E009D2672 /* Exceptions for "Restaurant" folder in "Restaurant" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				RestaurantTests/RestaurantTests.swift,
+			);
+			target = AAED4E7D2F0EAA8C0062EEC2 /* Restaurant */;
+		};
+		AAEED65E2F11540E009D2672 /* Exceptions for "Restaurant" folder in "RestaurantTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				RestaurantTests/RestaurantTests.swift,
+			);
+			target = AAED4E922F0EAA8F0062EEC2 /* RestaurantTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AAED4E802F0EAA8C0062EEC2 /* Restaurant */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AAEED65D2F11540E009D2672 /* Exceptions for "Restaurant" folder in "Restaurant" target */,
+				AAEED65E2F11540E009D2672 /* Exceptions for "Restaurant" folder in "RestaurantTests" target */,
+			);
 			path = Restaurant;
-			sourceTree = "<group>";
-		};
-		AAED4E962F0EAA8F0062EEC2 /* RestaurantTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RestaurantTests;
 			sourceTree = "<group>";
 		};
 		AAED4EA02F0EAA8F0062EEC2 /* RestaurantUITests */ = {
@@ -76,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				AAED4E802F0EAA8C0062EEC2 /* Restaurant */,
-				AAED4E962F0EAA8F0062EEC2 /* RestaurantTests */,
 				AAED4EA02F0EAA8F0062EEC2 /* RestaurantUITests */,
 				AAED4E7F2F0EAA8C0062EEC2 /* Products */,
 			);
@@ -129,9 +144,6 @@
 			);
 			dependencies = (
 				AAED4E952F0EAA8F0062EEC2 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				AAED4E962F0EAA8F0062EEC2 /* RestaurantTests */,
 			);
 			name = RestaurantTests;
 			packageProductDependencies = (
