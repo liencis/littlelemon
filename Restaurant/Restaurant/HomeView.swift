@@ -10,16 +10,22 @@ import SwiftUI
 struct HomeView: View {
     let persistenceController = PersistenceController.shared
     @Binding var path: NavigationPath
+    @State var viewToRender: TabViewEnum = .menu
     
     var body: some View {
-        TabView {
+        TabView(selection: $viewToRender) {
             MenuView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .tabItem() { Label("Menu", systemImage: "list.dash") }
+                .position(x: 201, y:435)
+            
             UserProfileView(path: $path)
-                .tabItem() { Label("Edit Profile", systemImage: "square.and.pencil") }
+                .tabItem() { Label("Profile", systemImage: "square.and.pencil") }
         }
         .navigationBarBackButtonHidden(true)
+        .safeAreaInset(edge: .top) {
+            HeaderView(path: $path)
+        }
     }
 }
 

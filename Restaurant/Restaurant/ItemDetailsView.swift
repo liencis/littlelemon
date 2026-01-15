@@ -51,7 +51,7 @@ struct ItemDetailsView: View {
             .font(.title2)
             .frame(maxWidth: .infinity)
             .padding()
-            .foregroundStyle(Color.lemonWhite)
+//            .foregroundStyle(Color.lemonWhite)
             .background(Color(Color.lemonGreen))
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .alert("\(item.title ?? "Menu Item") added to cart!",

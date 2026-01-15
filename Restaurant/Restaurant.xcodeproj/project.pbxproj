@@ -30,19 +30,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		AAEED65D2F11540E009D2672 /* Exceptions for "Restaurant" folder in "Restaurant" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				RestaurantTests/RestaurantTests.swift,
-			);
-			target = AAED4E7D2F0EAA8C0062EEC2 /* Restaurant */;
-		};
-		AAEED65E2F11540E009D2672 /* Exceptions for "Restaurant" folder in "RestaurantTests" target */ = {
+		AAEC05C42F18EADF00508DAE /* Exceptions for "Restaurant" folder in "RestaurantTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				RestaurantTests/RestaurantTests.swift,
 			);
 			target = AAED4E922F0EAA8F0062EEC2 /* RestaurantTests */;
+		};
+		AAEED65D2F11540E009D2672 /* Exceptions for "Restaurant" folder in "Restaurant" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				RestaurantTests/RestaurantTests.swift,
+			);
+			target = AAED4E7D2F0EAA8C0062EEC2 /* Restaurant */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -51,7 +52,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				AAEED65D2F11540E009D2672 /* Exceptions for "Restaurant" folder in "Restaurant" target */,
-				AAEED65E2F11540E009D2672 /* Exceptions for "Restaurant" folder in "RestaurantTests" target */,
+				AAEC05C42F18EADF00508DAE /* Exceptions for "Restaurant" folder in "RestaurantTests" target */,
 			);
 			path = Restaurant;
 			sourceTree = "<group>";
@@ -410,6 +411,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Restaurant/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Restaurant/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -438,6 +440,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Restaurant/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Restaurant/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

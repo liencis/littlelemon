@@ -6,35 +6,24 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MenuView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @ObservedObject var dishesModel = DishesModel()
     @State var searchText = ""
+    
+    @FetchRequest(
+        sortDescriptors:
+            [NSSortDescriptor(keyPath: \Dish.title, ascending: true)],
+        animation: .default)
+    private var dishesT: FetchedResults<Dish>
 
     var body: some View {
         VStack {
-            VStack {
-                Text("Little Lemon")
-                HStack {
-                    VStack {
-                        Text("Chicago")
-                        Text("We  are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
-                    }
-                    // Place for image
-                }
-            }
-            HStack {
-                Image(systemName: "magnifyingglass")
-                TextField("Search menu", text: $searchText)
-            }
-            .padding(3)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(lineWidth: 2)
-                    .foregroundStyle(Color.lemonGreen)
-            )
+            HeroView(searchText: $searchText)
+            
             FetchedObjects(
                 predicate:buildPredicate(),
                 sortDescriptors: buildSortDescriptors()
@@ -58,8 +47,6 @@ struct MenuView: View {
                         }
                     }
                 }
-                //.searchable(text: $searchText, prompt: "search...")
-                .navigationBarTitle("Menu")
             }
         }
         .task {
@@ -85,5 +72,7 @@ struct MenuView: View {
 }
 
 #Preview {
+    let persistenceController = PersistenceController.shared
     MenuView()
+        .environment(\.managedObjectContext, persistenceController.container.viewContext)
 }
