@@ -10,12 +10,18 @@ import SwiftUI
 let kFirstName = "first name key"
 let kLastName = "last name key"
 let kEmail = "email key"
+let kImageName = "kImageName"
 
 let kIsLoggedIn = "kIsLoggedIn"
 
 enum Screen: Hashable {
     case home
 }
+
+//@Observable
+//class Path {
+//    var navigationPath: NavigationPath = NavigationPath()
+//}
 
 struct OnboardingView: View {
     @State var firstName: String = ""
@@ -28,6 +34,7 @@ struct OnboardingView: View {
     @State var isLoggedIn: Bool = false
 
     @State var path = NavigationPath()
+    //@State var path = Path()
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -44,6 +51,7 @@ struct OnboardingView: View {
                             UserDefaults.standard.set(lastName, forKey: kLastName)
                             UserDefaults.standard.set(email, forKey: kEmail)
                             UserDefaults.standard.set(true, forKey: kIsLoggedIn)
+                            UserDefaults.standard.set("profile-image-placeholder", forKey: kImageName)
                             isLoggedIn = true
                             clearState()
                             path.append(Screen.home)
