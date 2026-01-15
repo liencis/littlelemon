@@ -15,13 +15,13 @@ let kImageName = "kImageName"
 let kIsLoggedIn = "kIsLoggedIn"
 
 enum Screen: Hashable {
-    case home
+    case home, profile
 }
 
-//@Observable
-//class Path {
-//    var navigationPath: NavigationPath = NavigationPath()
-//}
+@Observable
+class Path {
+    var path: Array<Screen> = []
+}
 
 struct OnboardingView: View {
     @State var firstName: String = ""
@@ -33,11 +33,10 @@ struct OnboardingView: View {
     
     @State var isLoggedIn: Bool = false
 
-    @State var path = NavigationPath()
-    //@State var path = Path()
+    @State var navigationPath = Path()
     
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $navigationPath.path) {
             VStack {
                 TextField("First name", text: $firstName)
                 TextField("Last name", text: $lastName)
@@ -54,7 +53,7 @@ struct OnboardingView: View {
                             UserDefaults.standard.set("profile-image-placeholder", forKey: kImageName)
                             isLoggedIn = true
                             clearState()
-                            path.append(Screen.home)
+                            navigationPath.path.append(Screen.home)
                         } else {
                             alertMesage = "Incorect email adress: \(email)"
                             showAlert.toggle()
@@ -72,53 +71,16 @@ struct OnboardingView: View {
             .navigationDestination(for: Screen.self) { screen in
                 switch screen {
                 case Screen.home:
-                    HomeView(path: $path)
+                    HomeView()//(path: $path)
+                        .environment(navigationPath)
+                case Screen.profile:
+                    UserProfileView()
                 }
                 //if value == "home" { HomeView(path: $path) }
             }
+            .environment(navigationPath)
         }
-
-            
-    //        if isLoggedIn {
-    //            NavigationStack { HomeView() }
-    //        } else {
-    //            NavigationStack {
-    //                VStack {
-    //                    TextField("First name", text: $firstName)
-    //                    TextField("Last name", text: $lastName)
-    //                    TextField("Email", text: $email)
-    //                        .keyboardType(.emailAddress)
-    //
-    //                    Button("Register") {
-    //                        if !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty {
-    //                            if isValidEmail(email) {
-    //                                UserDefaults.standard.set(firstName, forKey: kFirstName)
-    //                                UserDefaults.standard.set(lastName, forKey: kLastName)
-    //                                UserDefaults.standard.set(email, forKey: kEmail)
-    //                                UserDefaults.standard.set(true, forKey: kIsLoggedIn)
-    //                                isLoggedIn = true
-    //                            } else {
-    //                                alertMesage = "Incorect email adress: \(email)"
-    //                                showAlert.toggle()
-    //                            }
-    //                        } else {
-    //                            alertMesage = "To finish registration you should provide all required information!"
-    //                            showAlert.toggle()
-    //                        }
-    //                    }
-    //                    .alert(isPresented: self.$showAlert) {
-    //                        Alert(title: Text("\(alertMesage)"))
-    //                    }
-    //                }
-    //                .padding(8)
-    //                .onAppear() {
-    //                    if UserDefaults.standard.bool(forKey: kIsLoggedIn) {
-    //                        isLoggedIn = true
-    //                    } else { isLoggedIn = false }
-    //                }
-    //            }
-    //        }
-        }
+    }
     
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"

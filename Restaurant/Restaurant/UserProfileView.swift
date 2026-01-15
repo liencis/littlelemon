@@ -10,7 +10,7 @@ import SwiftUI
 struct UserProfileView: View {
     // @Environment(\.presentationMode) var presentation
     
-    @Binding var path: NavigationPath
+    @Environment(Path.self) var navigationPath
     
     // If you decide to use UserDefaults in your app, don’t forget to add PrivacyManifest file to your app or your app review may get denied. Learn how to set that up here: https://medium.com/@jpmtech/privacy-manifest-for-your-ios-app-bce634c1b619
     
@@ -35,13 +35,15 @@ struct UserProfileView: View {
     }
     
     func logOutClicked() {
+        print(navigationPath)
         UserDefaults.standard.removeObject(forKey: kFirstName)
         UserDefaults.standard.removeObject(forKey: kLastName)
         UserDefaults.standard.removeObject(forKey: kEmail)
-        path.removeLast()
+        navigationPath.path.removeLast()
     }
 }
 
 #Preview {
-    UserProfileView(path: .constant(NavigationPath()))
+    UserProfileView()
+        .environment(Path())
 }

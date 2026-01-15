@@ -10,7 +10,7 @@ import SwiftUI
 struct HeaderView: View {
     var imageString = UserDefaults.standard.string(forKey: kIsLoggedIn)
     
-    @Binding var path: NavigationPath
+    //@Binding var path: NavigationPath
     var body: some View {
         HStack {
             Image(systemName: "arrow.backward.circle.fill")
@@ -41,5 +41,6 @@ struct HeaderView: View {
 }
 
 #Preview {
-    HeaderView(path: .constant(NavigationPath()))
+    HeaderView()//(path: .constant(NavigationPath()))
 }
+
