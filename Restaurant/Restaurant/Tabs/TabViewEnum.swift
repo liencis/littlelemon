@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum TabViewEnum: Identifiable, CaseIterable, View {
+enum TabViewEnum: Identifiable, CaseIterable {
     case menu, userPrfile
     var id: Self { self }
     
@@ -18,15 +18,6 @@ enum TabViewEnum: Identifiable, CaseIterable, View {
                 .init(name: "Menu", imageName: "list.dash")
         case .userPrfile:
                 .init(name: "Profile", imageName: "square.and.pencil")
-        }
-    }
-    
-    var body: some View {
-        switch self {
-        case .menu:
-            Menu()
-        case .userPrfile:
-            Profile()
         }
     }
 }

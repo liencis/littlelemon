@@ -8,24 +8,32 @@
 import SwiftUI
 
 struct HeaderView: View {
-    var imageString = UserDefaults.standard.string(forKey: kIsLoggedIn)
+    @Binding var viewToRender: TabViewEnum
+    
+    let imageString = UserDefaults.standard.string(forKey: kIsLoggedIn)
     
     //@Binding var path: NavigationPath
     var body: some View {
         HStack {
-            Image(systemName: "arrow.backward.circle.fill")
-                .resizable()
-                .frame(width: 40, height: 40)
-                .foregroundStyle(Color.lemonGreen)
-                .padding()
+            Button() {
+                viewToRender = TabViewEnum.menu
+            } label: {
+                Image(systemName: "arrow.backward.circle.fill")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .foregroundStyle(viewToRender == TabViewEnum.userPrfile ? Color.lemonGreen : Color.clear)
+                    .padding()
+            }
+            
             Spacer()
             Image("HeaderLogo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 40)
             Spacer()
+            
             Button() {
-                
+                viewToRender = TabViewEnum.userPrfile
             } label: {
                 Image("profile-image-placeholder")//imageString ?? "profile-image-placeholder")
                     .resizable()
@@ -41,6 +49,7 @@ struct HeaderView: View {
 }
 
 #Preview {
-    HeaderView()//(path: .constant(NavigationPath()))
+    @Previewable @State var section = TabViewEnum.menu
+    HeaderView(viewToRender: $section)
 }
 

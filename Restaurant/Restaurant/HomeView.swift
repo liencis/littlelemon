@@ -15,17 +15,19 @@ struct HomeView: View {
     
     var body: some View {
         TabView(selection: $viewToRender) {
-            MenuView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .tabItem() { Label("Menu", systemImage: "list.dash") }
-                .position(x: 201, y:435)
+            Tab(value: .menu) {
+                MenuView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .position(x: 201, y:435)
+            }
             
-            UserProfileView()//(path: $path)
-                .tabItem() { Label("Profile", systemImage: "square.and.pencil") }
+            Tab(value: .userPrfile) {
+                UserProfileView()
+            }
         }
         .navigationBarBackButtonHidden(true)
         .safeAreaInset(edge: .top) {
-            HeaderView()//(path: $path)
+            HeaderView(viewToRender: $viewToRender)
         }
         .environment(navigationPath)
     }
