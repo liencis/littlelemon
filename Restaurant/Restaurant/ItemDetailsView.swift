@@ -38,10 +38,12 @@ struct ItemDetailsView: View {
             .padding()
             
             Text("**Description:**").font(.title2).foregroundStyle(Color.lemonDark)
-            Text(item.itemDescription ?? "Delicious meal from Little Lemon").foregroundStyle(Color.lemonDark)
+            Text(item.itemDescription ?? "Delicious meal from Little Lemon")
+                .foregroundStyle(Color.lemonDark)
+                .font(.custom("Karla-Regular", size: 18))
             
             Text("**Price:** \(item.formatPrice())")
-                .font(.title2)
+                .font(.custom("Karla-Regular", size: 26))
                 .foregroundStyle(Color.lemonDark)
                 .padding()
             
@@ -51,7 +53,7 @@ struct ItemDetailsView: View {
             .font(.title2)
             .frame(maxWidth: .infinity)
             .padding()
-//            .foregroundStyle(Color.lemonWhite)
+            .foregroundStyle(Color.lemonWhite)
             .background(Color(Color.lemonGreen))
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .alert("\(item.title ?? "Menu Item") added to cart!",
@@ -61,22 +63,6 @@ struct ItemDetailsView: View {
         }.padding()
     }
 }
-
-//#Preview {
-//    let context = PersistenceController.shared.container.viewContext
-//    let dish = Dish(context: context)
-//    
-//    func oneDish() -> Dish {
-//        let dish = Dish(context: context)
-//        dish.title = "Pasta"
-//        dish.price = 12.45
-//        dish.image = "https://imgur.com/DVfV9Gr.jpg"
-//        dish.itemDescription = "Home made delicious pasta, hand cut."
-//        return dish
-//    }
-//    
-//    ItemDetailsView(item: oneDish())
-//}
 
 struct ItemsDetailView_Previews: PreviewProvider {
     static let context = PersistenceController.shared.container.viewContext
