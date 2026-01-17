@@ -1,13 +1,13 @@
 //
-//  TestView.swift
+//  MenuItemBoxView.swift
 //  Restaurant
 //
-//  Created by Liene Zegele on 1/13/26.
+//  Created by Liene Zegele on 1/17/26.
 //
 
 import SwiftUI
 
-struct TestView: View {
+struct MenuItemBoxView: View {
     @ObservedObject private var item: Dish
     
     init(_ item: Dish) {
@@ -29,7 +29,6 @@ struct TestView: View {
                         .font(.custom("Karla-Medium", size: 18))
                 }
                 .foregroundStyle(Color.lemonGreen)
-                .border(.red)
                 
                 Spacer()
                 
@@ -38,20 +37,22 @@ struct TestView: View {
                 } placeholder: {
                     ProgressView()
                 }
-                .frame(width: 60, height: 60)
+                .frame(width: 70, height: 70)
             }
         }
-        .border(.green)
     }
-    
 }
 
-struct TestView_Previews: PreviewProvider {
+//#Preview {
+//    MenuItemBoxView()
+//}
+
+struct MenuItemBoxView_Previews: PreviewProvider {
     static let context = PersistenceController.shared.container.viewContext
     let item = Dish(context: context)
     
     static var previews: some View {
-        TestView(oneDish())
+        MenuItemBoxView(oneDish())
     }
     
     static func oneDish() -> Dish {
@@ -63,5 +64,3 @@ struct TestView_Previews: PreviewProvider {
         return item
     }
 }
-
-

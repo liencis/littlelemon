@@ -28,24 +28,16 @@ struct MenuView: View {
                 predicate:buildPredicate(),
                 sortDescriptors: buildSortDescriptors()
             ) { (dishes: [Dish]) in
-                HStack {
+                VStack {
                     List {
                         ForEach(dishes, id: \.self) { dish in
                             NavigationLink(destination: ItemDetailsView(dish)) {
-                                HStack() {
-                                    Text(dish.title ?? "")
-                                    Text("$ \(String(dish.price))")
-                                    Spacer()
-                                    AsyncImage(url: URL(string: dish.image ?? "https://imgur.com/nIT7Agk.jpg")) {image in
-                                        image.resizable()
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
-                                    .frame(width: 50, height: 50)
-                                }
+                                MenuItemBoxView(dish)
                             }
                         }
                     }
+                    .scrollContentBackground(.hidden)
+                    .padding(0)
                 }
             }
         }
