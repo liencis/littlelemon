@@ -11,15 +11,6 @@ import CoreData
 
 extension Dish {
     
-//    class func saveDatabase(_ context:NSManagedObjectContext) {
-//        guard context.hasChanges else { return}
-//        do {
-//            try context.save()
-//        } catch (let error) {
-//            print(error.localizedDescription)
-//        }
-//    }
-    
     static func exists(title: String,
                        _ context:NSManagedObjectContext) -> Bool? {
         let request = Dish.request()
@@ -31,6 +22,7 @@ extension Dish {
             else {
                 return nil
             }
+   
             return results.count > 0
         } catch (let error){
             print(error.localizedDescription)
@@ -42,16 +34,20 @@ extension Dish {
     static func createDishesFrom(menuItems:[MenuItem],
                                  _ context:NSManagedObjectContext) {
         for item in menuItems {
-            guard let _ = exists(title: item.title, context) else { continue }
+            guard let itemInDB = exists(title: item.title, context) else { continue }
             
-            let dish = Dish(context: context)
-            dish.title = item.title
-            dish.price = Float(item.price) ?? 0.0
-            dish.itemDescription = item.description
-            dish.image = item.image
+            if itemInDB == false { // Check that item is not present in DB
+                
+                // Add item to Dish table in DB
+                let dish = Dish(context: context)
+                dish.title = item.title
+                dish.price = Float(item.price) ?? 0.0
+                dish.itemDescription = item.description
+                dish.image = item.image
+                
+            }
         }
         try? context.save()
-        // saveDatabase(context)
     }
     
 }
