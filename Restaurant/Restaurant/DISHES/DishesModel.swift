@@ -22,11 +22,10 @@ class DishesModel: ObservableObject {
         do {
             let (data, _) = try await urlSession.data(from: url)
             let fullMenu = try JSONDecoder().decode(MenuList.self, from: data)
-            print("I am here! \(fullMenu)")
             menuItems = fullMenu.menu
             
             // populate Core Data
-            Dish.deleteAll(coreDataContext)
+            //Dish.deleteAll(coreDataContext)
             Dish.createDishesFrom(menuItems:menuItems, coreDataContext)
         }
         catch { print(">>> \(error)") }
