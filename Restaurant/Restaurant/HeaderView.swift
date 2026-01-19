@@ -11,6 +11,7 @@ struct HeaderView: View {
     @Binding var viewToRender: TabViewEnum
     
     let imageString = UserDefaults.standard.string(forKey: kIsLoggedIn)
+    @Environment(UserImage.self) var user
     
     //@Binding var path: NavigationPath
     var body: some View {
@@ -35,11 +36,16 @@ struct HeaderView: View {
             Button() {
                 viewToRender = TabViewEnum.userPrfile
             } label: {
-                Image("profile-image-placeholder")//imageString ?? "profile-image-placeholder")
+                Image(uiImage: user.uiImage)//imageString ?? "profile-image-placeholder")
                     .resizable()
                     .frame(maxWidth: 40, maxHeight: 40)
                     .clipShape(.rect(cornerRadius: 50))
-                    .padding()
+                    .padding(5)
+                    .overlay() {
+                        Circle()
+                            .stroke(Color.lemonGreen, lineWidth: 3)
+                    }
+                    .padding(10)
                     //.background(Color.white, in: .circle)
             }
             .frame(alignment: .trailing)
@@ -51,5 +57,6 @@ struct HeaderView: View {
 #Preview {
     @Previewable @State var section = TabViewEnum.menu
     HeaderView(viewToRender: $section)
+        .environment(UserImage())
 }
 

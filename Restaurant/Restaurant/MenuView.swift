@@ -21,6 +21,7 @@ struct MenuView: View {
     private var dishesT: FetchedResults<Dish>
 
     var body: some View {
+        VStack {}.frame(maxWidth: .infinity, minHeight: 70)
         VStack {
             HeroView(searchText: $searchText)
             

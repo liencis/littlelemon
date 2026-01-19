@@ -11,11 +11,12 @@ let kFirstName = "first name key"
 let kLastName = "last name key"
 let kEmail = "email key"
 let kImageName = "kImageName"
+let kPhoneNumber = "kPhoneNumber"
 
 let kIsLoggedIn = "kIsLoggedIn"
 
 enum Screen: Hashable {
-    case home, profile
+    case home
 }
 
 @Observable
@@ -38,8 +39,6 @@ struct OnboardingView: View {
                 case Screen.home:
                     HomeView()
                         .environment(navigationPath)
-                case Screen.profile:
-                    UserProfileView()
                 }
             }
             .environment(navigationPath)
