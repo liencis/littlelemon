@@ -7,7 +7,13 @@
 
 import SwiftUI
 
+@Observable
+class UserImage {
+    var uiImage: UIImage = UIImage(systemName: "person.fill")!
+}
+
 struct HomeView: View {
+    @State var user = UserImage()
     let persistenceController = PersistenceController.shared
     
     @State var viewToRender: TabViewEnum = .menu
@@ -18,16 +24,18 @@ struct HomeView: View {
             Tab(value: .menu) {
                 MenuView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                    .position(x: 201, y:435)
+                    .toolbar(false ? .visible : .hidden, for: .tabBar) // Removing default
             }
             
             Tab(value: .userPrfile) {
-                UserProfileView()
+                UserProfileView(user: $user)
+                    .toolbar(false ? .visible : .hidden, for: .tabBar)
             }
         }
         .navigationBarBackButtonHidden(true)
         .safeAreaInset(edge: .top) {
             HeaderView(viewToRender: $viewToRender)
+                .environment(user)
         }
         .environment(navigationPath)
     }
