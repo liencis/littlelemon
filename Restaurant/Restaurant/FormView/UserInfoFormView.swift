@@ -11,21 +11,6 @@ enum Tabees {
     case name, lastName, email
 }
 
-struct EmailNotifications {
-    var orderStatus: Bool
-    var paswordChage: Bool
-    var specialOffers: Bool
-    var newsLetter: Bool
-}
-
-struct User {
-    var name: String
-    var lastName: String
-    var email: String
-    var phoneNumber: String
-    var notifications: EmailNotifications
-}
-
 
 struct UserInfoFormView: View {
     @State var inputString: String = ""
@@ -41,7 +26,7 @@ struct UserInfoFormView: View {
                 Tab(value: .lastName) {
                     LastNameView(selection: $selection)
                 }
-                Tab(value: .email) {
+            Tab(value: .email) {
                     EmailView(selection: $selection)
                         .environment(navigationPath)
                 }
