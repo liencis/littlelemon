@@ -9,11 +9,8 @@ import SwiftUI
 
 struct HeaderView: View {
     @Binding var viewToRender: TabViewEnum
-    
-    let imageString = UserDefaults.standard.string(forKey: kIsLoggedIn)
     @Environment(UserImage.self) var user
     
-    //@Binding var path: NavigationPath
     var body: some View {
         HStack {
             Button() {
@@ -27,16 +24,18 @@ struct HeaderView: View {
             }
             
             Spacer()
+            
             Image("HeaderLogo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 40)
+            
             Spacer()
             
             Button() {
                 viewToRender = TabViewEnum.userPrfile
             } label: {
-                Image(uiImage: user.uiImage)//imageString ?? "profile-image-placeholder")
+                Image(uiImage: user.uiImage)
                     .resizable()
                     .frame(maxWidth: 40, maxHeight: 40)
                     .clipShape(.rect(cornerRadius: 50))
@@ -46,11 +45,16 @@ struct HeaderView: View {
                             .stroke(Color.lemonGreen, lineWidth: 3)
                     }
                     .padding(10)
-                    //.background(Color.white, in: .circle)
             }
             .frame(alignment: .trailing)
         }
         .frame(maxWidth: .infinity, maxHeight: 70, alignment: .top)
+        .onAppear() {
+            let imageData = UserDefaults.standard.data(forKey: kImageName)
+            if imageData != nil {
+                user.uiImage = UIImage(data: imageData!) ?? UIImage(systemName: "person.fill")!
+            }
+        }
     }
 }
 

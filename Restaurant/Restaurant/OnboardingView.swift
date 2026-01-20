@@ -12,6 +12,7 @@ let kLastName = "last name key"
 let kEmail = "email key"
 let kImageName = "kImageName"
 let kPhoneNumber = "kPhoneNumber"
+let kNotifications = "kNotifications"
 
 let kIsLoggedIn = "kIsLoggedIn"
 
@@ -43,6 +44,11 @@ struct OnboardingView: View {
             }
             .environment(navigationPath)
             .background(Color.lemonGreen)
+        }
+        .onAppear(){
+            if UserDefaults.standard.bool(forKey: kIsLoggedIn) {
+                navigationPath.path.append(.home)
+            }
         }
     }
 }
