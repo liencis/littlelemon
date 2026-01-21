@@ -18,7 +18,7 @@ struct HeaderView: View {
             } label: {
                 Image(systemName: "arrow.backward.circle.fill")
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 35, height: 35)
                     .foregroundStyle(viewToRender == TabViewEnum.userPrfile ? Color.lemonGreen : Color.clear)
                     .padding()
             }
@@ -37,7 +37,7 @@ struct HeaderView: View {
             } label: {
                 Image(uiImage: user.uiImage)
                     .resizable()
-                    .frame(maxWidth: 40, maxHeight: 40)
+                    .frame(maxWidth: 30, maxHeight: 30)
                     .clipShape(.rect(cornerRadius: 50))
                     .padding(5)
                     .overlay() {
@@ -48,7 +48,7 @@ struct HeaderView: View {
             }
             .frame(alignment: .trailing)
         }
-        .frame(maxWidth: .infinity, maxHeight: 70, alignment: .top)
+        .frame(maxWidth: .infinity, maxHeight: 60, alignment: .top)
         .onAppear() {
             let imageData = UserDefaults.standard.data(forKey: kImageName)
             if imageData != nil {

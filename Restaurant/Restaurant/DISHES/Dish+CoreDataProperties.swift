@@ -20,6 +20,7 @@ extension Dish {
     @NSManaged public var itemDescription: String?
     @NSManaged public var title: String?
     @NSManaged public var price: Float
+    @NSManaged public var category: String?
 
 }
 

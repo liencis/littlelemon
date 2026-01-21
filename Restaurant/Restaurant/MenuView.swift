@@ -13,6 +13,7 @@ struct MenuView: View {
     
     @ObservedObject var dishesModel = DishesModel()
     @State var searchText = ""
+    @State var categorySelected: [MenuCategory] = []
     
     @FetchRequest(
         sortDescriptors:
@@ -21,10 +22,10 @@ struct MenuView: View {
     private var dishesT: FetchedResults<Dish>
 
     var body: some View {
-        VStack {}.frame(maxWidth: .infinity, minHeight: 70)
+        VStack {}.frame(maxWidth: .infinity, minHeight: 60)
         VStack {
             HeroView(searchText: $searchText)
-            
+            MenuCategoryView(categorySelected: $categorySelected)
             FetchedObjects(
                 predicate:buildPredicate(),
                 sortDescriptors: buildSortDescriptors()
@@ -39,7 +40,7 @@ struct MenuView: View {
                     }
                     .scrollContentBackground(.hidden)
                     .padding(0)
-                }
+                }.padding(0)
             }
         }
         .task {
@@ -47,12 +48,28 @@ struct MenuView: View {
         }
     }
     
-    func buildPredicate() -> NSPredicate {
-        if searchText == "" {
-            return NSPredicate(value: true)
+    func buildPredicate() -> NSCompoundPredicate {
+        var predicates = [NSPredicate]()
+        
+        if searchText == "" && categorySelected.count == 0 {
+            return NSCompoundPredicate(type: .and, subpredicates: [NSPredicate(value: true)])
         }
         
-        return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        if categorySelected.count > 0 {
+            var categoryPredicate = [NSPredicate]()
+            for cat in categorySelected {
+                categoryPredicate.append(NSPredicate(format: "category == %@", cat.name))
+            }
+            let categoryCompoundPredicate = NSCompoundPredicate(type: .or, subpredicates: categoryPredicate)
+            
+            predicates.append(categoryCompoundPredicate)
+        }
+        
+        if !searchText.isEmpty {
+            predicates.append(NSPredicate(format: "title CONTAINS[cd] %@", searchText))
+        }
+        
+        return NSCompoundPredicate(type: .and, subpredicates: predicates)
     }
     
     func buildSortDescriptors() -> [NSSortDescriptor] {

@@ -44,6 +44,7 @@ extension Dish {
                 dish.price = Float(item.price) ?? 0.0
                 dish.itemDescription = item.description
                 dish.image = item.image
+                dish.category = item.category
                 
             }
         }
