@@ -24,6 +24,8 @@ struct ItemDetailsView: View {
                 .foregroundStyle(Color.lemonGreen)
                 .padding(.bottom)
             
+            Text("\(item.category ?? "Where I am?")")
+            
             AsyncImage(url: URL(string: item.image ?? "https://imgur.com/nIT7Agk.jpg")) {image in
                 VStack {
                     image

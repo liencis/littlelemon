@@ -4,6 +4,7 @@
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Dish" representedClassName="Dish" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="itemDescription" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>

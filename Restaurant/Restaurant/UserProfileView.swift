@@ -54,7 +54,7 @@ struct UserProfileView: View {
     // If you decide to use UserDefaults in your app, don’t forget to add PrivacyManifest file to your app or your app review may get denied. Learn how to set that up here: https://medium.com/@jpmtech/privacy-manifest-for-your-ios-app-bce634c1b619
 
     var body: some View {
-        VStack {}.frame(maxWidth: .infinity, minHeight: 70)
+        VStack {}.frame(maxWidth: .infinity, minHeight: 60)
         ScrollView {
             VStack(alignment: .leading) {
                 Text("Personal information")
@@ -238,10 +238,7 @@ struct UserProfileView: View {
                     } label: {
                         Text("Save changes")
                             .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.lemonGreen, lineWidth: 2)
-                            )
+
                     }
                     .font(.custom("Karla-Medium", size: 14))
                     .frame(minWidth: 120, maxHeight: 20)
@@ -300,16 +297,10 @@ struct UserProfileView: View {
                 notif = EmailNotifications(orderStatus: true, paswordChage: true, specialOffers: true, newsLetter: true)
             }
             
-            let img: CustomImage
             let img_data = UserDefaults.standard.data(forKey: kImageName)
             if img_data != nil {
                 user.uiImage = UIImage(data: img_data!)!
             }
-//            if img_data != nil {
-//                let decoder = JSONDecoder()
-//                img = try decoder.decode(CustomImage.self, from: img_data!)
-//                user.uiImage = img.getImage() ?? user.uiImage
-//            }
             
             appUser = User(
                 name: UserDefaults.standard.string(forKey: kFirstName) ?? "",
@@ -335,14 +326,7 @@ struct UserProfileView: View {
     }
     
     func saveUserImage() {
-        do {
-//            let img = CustomImage(withImage: user.uiImage)
-//            let encoder = JSONEncoder()
-//            let data = try encoder.encode(img)
-            UserDefaults.standard.set(selectedImageData, forKey: kImageName)
-        } catch {
-            print("Error: \(error)")
-        }
+        UserDefaults.standard.set(selectedImageData, forKey: kImageName)
     }
 }
 
