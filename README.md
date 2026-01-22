@@ -1,6 +1,13 @@
 # littlelemon
 Little Lemon IPhone app
 
+**How to run the app**
+
+- Make sure you have Xcode installed
+- Clone this repository by running this comand in terminal:
+- Open the project in Xcode
+- Build and run the app on a simulator or your device
+
 Implemented:
 - Onboarding view
 - Menu view with hero, search bar, category search and menu items list.
