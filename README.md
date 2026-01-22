@@ -5,7 +5,9 @@ Little Lemon IPhone app
 
 - Make sure you have Xcode installed
 - Clone this repository by running this comand in terminal:
+```
 git clone git@github.com:liencis/littlelemon.git
+```
 - Open the project in Xcode
 - Build and run the app on a simulator or your device
 
