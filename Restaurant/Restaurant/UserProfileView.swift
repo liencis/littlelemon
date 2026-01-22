@@ -226,12 +226,13 @@ struct UserProfileView: View {
                             showAlert = true
                             alertMesage = "Incorectly formated email: \(appUser.email)."
                         }
-                        
-                        if validate(value: appUser.phoneNumber) {
-                            UserDefaults.standard.set(appUser.phoneNumber, forKey: kPhoneNumber)
-                        } else {
-                            showAlert = true
-                            alertMesage = "Invalid phone number."
+                        if !appUser.phoneNumber.isEmpty {
+                            if validate(value: appUser.phoneNumber) {
+                                UserDefaults.standard.set(appUser.phoneNumber, forKey: kPhoneNumber)
+                            } else {
+                                showAlert = true
+                                alertMesage = "Invalid phone number."
+                            }
                         }
                         saveEmailNotifications()
                         saveUserImage()
